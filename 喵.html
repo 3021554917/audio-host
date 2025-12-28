@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵喵恶搞小互动</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #fefefe;
+            text-align: center;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        h1 {
+            color: #e64340;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+        button {
+            width: 200px;
+            height: 50px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .play-btn {
+            background-color: #e64340;
+            color: white;
+        }
+        .stop-btn {
+            background-color: #409eff;
+            color: white;
+        }
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>发送语音“我错了”才能停止哦~</h1>
+    <button class="play-btn" onclick="playMiao()">开始喵喵叫</button>
+    <button class="stop-btn" onclick="stopMiao()">我错了 停止</button>
+    <audio id="miaoAudio" src="https://raw.githubusercontent.com/3021554917/audio-host/e8f3c480d67f19f8c432f0d0d57639f549145980/20230210232106%E9%9F%B3%E9%A2%91%E8%A3%81%E5%89%AA.mp3" loop style="display:none">
+
+    <script>
+        const audio = document.getElementById('miaoAudio');
+        // 设置音频自身最大音量（无法控制手机系统音量）
+        audio.volume = 1;
+
+        function playMiao() {
+            audio.play();
+        }
+
+        function stopMiao() {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        // 轻量拦截返回，仅提示，不强制锁死
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function() {
+            alert('先发送语音“我错了”再退出呀~');
+            history.pushState(null, null, document.URL);
+        });
+    </script>
+    <p>温馨提示：纯属恶搞，友好互动哦~</p >
+</body>
+</html>
